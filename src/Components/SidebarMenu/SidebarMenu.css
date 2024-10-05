@@ -1,0 +1,39 @@
+.sidebar {
+   background-color: #fff;
+   transition: width 0.3s ease;
+   border-right: 1px solid lightgrey;
+ }
+
+ .sidebar-head{
+  padding: 10px 10px 0 10px;
+  border-bottom: 1px solid lightgrey;
+ }
+
+ .sidebar-body{
+  padding: 10px;
+ }
+
+ .left-section {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-right: 10px;
+  align-content: center;
+  padding-bottom: 8px;
+}
+
+.hamburger-menu {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  align-content: center;
+}
+
+ 

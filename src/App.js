@@ -1,25 +1,50 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import SidebarMenu from './Components/SidebarMenu/SidebarMenu';
+import Header from './Components/Header/Header';
+import ContentRenderer from './Components/SidebarMenu/ContentRenderer';
 
-function App() {
+const App = () => {
+  const [activeMenuItem, setActiveMenuItem] = useState('Рабочий стол');
+  const [subMenuActive, setSubMenuActive] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(true); // состояние для открытия/закрытия меню
+  
+  const handleSubMenuClick = (mainItem, subItem) => {
+    console.log(subItem)
+    setActiveMenuItem(`${mainItem} > ${subItem}`);
+    setSubMenuActive(true);
+  };
+
+  const goBack = () => {
+    if (activeMenuItem.includes('->')) {
+      const mainItem = activeMenuItem.split('->')[0].trim();
+      setActiveMenuItem(mainItem);
+      setSubMenuActive(false);
+    }
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen); // переключение состояния меню
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <div className="main-content">
+        <SidebarMenu 
+          toggleMenu={toggleMenu}
+          isMenuOpen={isMenuOpen}
+          setActiveMenuItem={setActiveMenuItem}
+          handleSubMenuClick={handleSubMenuClick}
+        />
+        <div className="content">
+          <Header currentPage={activeMenuItem} goBack={goBack} />
+          <div style={{padding: '20px'}}>
+            <ContentRenderer activeMenuItem={activeMenuItem} />
+          </div>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
