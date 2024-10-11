@@ -12,11 +12,19 @@
 .menu-item {
   margin-right: 20px;
   cursor: pointer;
+  font-weight: bold;
+}
+
+.menu-item p{
+  color: grey
 }
 
 .menu-item.active {
-  font-weight: bold;
   border-bottom: 2px solid black;
+}
+
+.menu-item.active p {
+  color: black;
 }
 
 .notification-badge {
@@ -25,4 +33,34 @@
   padding: 2px 5px;
   margin-left: 5px;
   font-size: 12px;
+}
+
+.top-menu-candidate div::-webkit-scrollbar {
+  display: none; /* Скрываем скроллбар в браузерах на основе WebKit */
+}
+
+.top-menu-candidate div {
+  -ms-overflow-style: none;  /* Скрываем скроллбар в IE и Edge */
+  scrollbar-width: none;  /* Скрываем скроллбар в Firefox */
+}
+
+@media (max-width: 600px) {
+  .top-menu-candidate {
+    padding: 10px;
+  }
+
+  .menu-items {
+    display: inline-flex;
+    overflow-x: auto;
+  }
+
+  .menu-item {
+    padding: 10px 15px;
+  }
+}
+
+@media (min-width: 601px) {
+  .menu-items {
+    justify-content: space-between;
+  }
 }

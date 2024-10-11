@@ -1,8 +1,9 @@
-import React, { useState, useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Candidate.css'
 import CandidateInfo from './CandidateInfo.jsx'
 
-const Candidate = ({activeMenuItem, setActiveMenuItem}) => {
+const Candidate = ({ activeMenuItem, setActiveMenuItem }) => {
+   const [menuWidth, setMenuWidth] = useState(window.innerWidth - 276);
    const subMenuItems = [
       'Основная информация',
       'Задачи',
@@ -17,12 +18,12 @@ const Candidate = ({activeMenuItem, setActiveMenuItem}) => {
       setActiveSubMenuItem(item);
       setActiveMenuItem(`Кандидаты > ${item}`);
    };
-   
+
    const renderContent = (page) => {
       // console.log(activeMenuItem)
       switch (page) {
          case 'Основная информация':
-            return <CandidateInfo NamePage={page}/>;
+            return (<CandidateInfo NamePage={page} />);
          default:
             return <div>Пусто</div>;
       }
@@ -35,7 +36,7 @@ const Candidate = ({activeMenuItem, setActiveMenuItem}) => {
    //изменение меню 
    useEffect(() => {
       const subMenuPart = activeMenuItem.split('>')[1]?.trim();
-      
+
       if (subMenuItems.includes(subMenuPart)) {
          setActiveSubMenuItem(subMenuPart);
       } else {
@@ -43,23 +44,45 @@ const Candidate = ({activeMenuItem, setActiveMenuItem}) => {
       }
    }, [activeMenuItem]);
 
+   useEffect(() => {
+      const handleResize = () => {
+        setMenuWidth(window.innerWidth - 276);
+      };
+  
+      window.addEventListener('resize', handleResize);
+  
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []);
+
 
    return (
       <div>
-      <div className="top-menu-candidate" style={{padding: 20, borderBottom: '1px solid lightgrey'}}>
-         <ul className="menu-items">
-            {subMenuItems.map((item, index) => (
-               <li
-                  key={index}
-                  className={`menu-item ${activeSubMenuItem === item ? 'active' : ''}`}
-                  onClick={() => handleSubMenuClick(item)}
-               >
-                  {item}
-                  {item === 'Задачи' && <span className="notification-badge">1</span>}
-               </li>
-            ))}
-         </ul>
-      </div>
+         <div className="top-menu-candidate" style={{ borderBottom: '1px solid lightgrey' }}>
+            <div style={{ overflowX: 'auto', whiteSpace: 'nowrap', width: `${menuWidth}px` }}>
+               <ul className="menu-items" style={{ display: 'inline-flex', padding: 0, margin: 0 }}>
+                  {subMenuItems.map((item, index) => (
+                     <li
+                        key={index}
+                        className={`menu-item ${activeSubMenuItem === item ? 'active' : ''}`}
+                        onClick={() => handleSubMenuClick(item)}
+                        style={{ 
+                           listStyleType: 'none',
+                           marginRight: 20,
+                           padding: '10px 20px',
+                           whiteSpace: 'nowrap',
+                           display: 'flex',
+                           flexDirection: 'row'
+                        }}
+                     >
+                        <p style={{margin: 0}}>{item}</p>
+                        {item === 'Задачи' && <span className="notification-badge">1</span>}
+                     </li>
+                  ))}
+               </ul>
+            </div>
+         </div>
 
          <div className="content">
             {renderContent(page)}
