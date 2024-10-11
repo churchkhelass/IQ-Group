@@ -64,9 +64,18 @@
 .sub-menu-item {
   padding: 8px 10px;
   cursor: pointer;
-  /* font-size: 12px; */
+  background-color: #fff;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .sub-menu-item:hover {
   background-color: #e0e0e0;
+}
+
+.menu-button.active .button-content {
+  background-color: #e0e0e0; /* цвет фона для активной кнопки */
+  color: #000; /* цвет текста для активной кнопки */
 }

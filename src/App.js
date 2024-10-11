@@ -6,20 +6,16 @@ import ContentRenderer from './Components/SidebarMenu/ContentRenderer';
 
 const App = () => {
   const [activeMenuItem, setActiveMenuItem] = useState('Рабочий стол');
-  const [subMenuActive, setSubMenuActive] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(true); // состояние для открытия/закрытия меню
-  
-  const handleSubMenuClick = (mainItem, subItem) => {
-    console.log(subItem)
-    setActiveMenuItem(`${mainItem} > ${subItem}`);
-    setSubMenuActive(true);
-  };
 
+  const handleSubMenuClick = (mainItem, subItem) => {
+    setActiveMenuItem(`${mainItem} > ${subItem}`);
+  };
+  
   const goBack = () => {
-    if (activeMenuItem.includes('->')) {
-      const mainItem = activeMenuItem.split('->')[0].trim();
+    if (activeMenuItem.includes('>')) {
+      const mainItem = activeMenuItem.split('>')[0].trim();
       setActiveMenuItem(mainItem);
-      setSubMenuActive(false);
     }
   };
 
@@ -33,13 +29,14 @@ const App = () => {
         <SidebarMenu 
           toggleMenu={toggleMenu}
           isMenuOpen={isMenuOpen}
+          activeMenuItem={activeMenuItem}
           setActiveMenuItem={setActiveMenuItem}
           handleSubMenuClick={handleSubMenuClick}
         />
         <div className="content">
           <Header currentPage={activeMenuItem} goBack={goBack} />
-          <div style={{padding: '20px'}}>
-            <ContentRenderer activeMenuItem={activeMenuItem} />
+          <div>
+            <ContentRenderer activeMenuItem={activeMenuItem} setActiveMenuItem={setActiveMenuItem} />
           </div>
         </div>
       </div>

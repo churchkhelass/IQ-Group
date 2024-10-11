@@ -1,0 +1,28 @@
+.top-menu-candidate {
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu-items {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+}
+
+.menu-item {
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.menu-item.active {
+  font-weight: bold;
+  border-bottom: 2px solid black;
+}
+
+.notification-badge {
+  background-color: yellow;
+  border-radius: 50%;
+  padding: 2px 5px;
+  margin-left: 5px;
+  font-size: 12px;
+}
